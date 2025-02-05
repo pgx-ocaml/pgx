@@ -34,7 +34,7 @@ module Thread = struct
   let output_string w s = return (Writer.write w s)
 
   let output_binary_int w n =
-    let chr = Caml.Char.chr in
+    let chr = Stdlib.Char.chr in
     Writer.write_char w (chr (n lsr 24));
     Writer.write_char w (chr ((n lsr 16) land 255));
     Writer.write_char w (chr ((n lsr 8) land 255));
@@ -56,7 +56,7 @@ module Thread = struct
     >>| function
     | `Eof _ -> raise Pgx_eof
     | `Ok ->
-      let code = Caml.Char.code in
+      let code = Stdlib.Char.code in
       (code (Bytes.get b 0) lsl 24)
       lor (code (Bytes.get b 1) lsl 16)
       lor (code (Bytes.get b 2) lsl 8)
