@@ -98,8 +98,8 @@ module Thread = struct
   let getlogin () = Unix.getuid () |> Unix.Passwd.getbyuid_exn >>| fun { name; _ } -> name
 
   let debug msg =
-    Log.Global.debug ~tags:[ "lib", "pgx_async" ] "%s" msg;
-    Log.Global.flushed ()
+    Async_log.Global.debug ~tags:[ "lib", "pgx_async" ] "%s" msg;
+    Async_log.Global.flushed ()
   ;;
 
   let protect f ~finally = Monitor.protect f ~finally

@@ -78,10 +78,12 @@
    (and
     :with-test
     (>= "1.0.0")))
+  (async_log
+   (>= "v0.17.0"))
   (async_kernel
-   (>= "v0.13.0"))
+   (>= "v0.17.0"))
   (async_unix
-   (>= "v0.13.0"))
+   (>= "v0.17.0"))
   async_ssl
   (base64
    (and
