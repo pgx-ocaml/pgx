@@ -18,7 +18,7 @@
  *)
 
 module Make
-    (RANDOM : Mirage_random.S)
+    (RANDOM : Mirage_crypto_rng_mirage.S)
     (TIME : Mirage_time.S)
     (MCLOCK : Mirage_clock.MCLOCK)
     (PCLOCK : Mirage_clock.PCLOCK)
