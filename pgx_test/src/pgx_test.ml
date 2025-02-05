@@ -1,5 +1,7 @@
 external reraise : exn -> _ = "%reraise"
 
+let uuid_v4 = Uuidm.v4_gen (Random.State.make_self_init ())
+
 module type S = sig
   val run_tests : library_name:string -> unit
 end
@@ -394,7 +396,7 @@ struct
                   "CREATE TABLE multi_typed(uuid uuid, int int, string text, numeric \
                    numeric);"
                 >>= fun _ ->
-                let expect_uuid = Uuidm.create `V4 in
+                let expect_uuid = uuid_v4 () in
                 let params =
                   let open Pgx.Value in
                   [ of_uuid expect_uuid
