@@ -1,4 +1,4 @@
-open Core_kernel
+open Core
 include Pgx.Value
 
 let of_time t =
@@ -18,7 +18,7 @@ let of_time t =
     2016-06-07 15:37:46Z (utc timezone) -> 2016-06-07 11:37:46-04
     2016-06-07 15:37:46-04 (local timezone) -> 2016-06-07 15:37:46-04
   *)
-  Time.to_string_abs ~zone:Time.Zone.utc t |> Pgx.Value.of_string
+  Time_float.to_string_abs ~zone:Time_float.Zone.utc t |> Pgx.Value.of_string
 ;;
 
 let to_time' =
@@ -36,7 +36,7 @@ let to_time' =
 
        For the first one we need to indicate that it's a UTC time by appending
        a 'Z'. For the second one we need to append the minutes to the timezone.
-       Without these formattings Time.of_string fails spectacularly
+       Without these formattings Time_float.of_string fails spectacularly
     *)
   let open Re in
   let tz = seq [ alt [ char '-'; char '+' ]; digit; digit ] in
@@ -44,7 +44,7 @@ let to_time' =
   let localtz_no_min = seq [ tz; eol ] |> compile in
   let localtz = seq [ tz; char ':'; digit; digit; eol ] |> compile in
   fun s ->
-    Time.of_string
+    Time_float.of_string_with_utc_offset
     @@
     match matches utctz s, matches localtz s, matches localtz_no_min s with
     | [], [], [] -> s ^ "Z"
