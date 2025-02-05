@@ -3,6 +3,8 @@ open Sexplib0
 open Sexplib0.Sexp_conv
 open Pgx.Value
 
+let uuid_v4 = Uuidm.v4_gen (Random.State.make_self_init ())
+
 let pp_value ppf x = Sexp.pp_hum ppf (sexp_of_t x)
 let equal_value (x : t) (y : t) = x = y
 let pp_hstore ppf x = Sexp.pp_hum ppf (sexp_of_hstore x)
@@ -168,7 +170,7 @@ let () =
           ; null
           ; of_point (-5., 100.)
           ; unit
-          ; of_uuid (Uuidm.create `V4)
+          ; of_uuid (uuid_v4 ())
           ; of_string all_chars
           ]
         ]
@@ -196,7 +198,7 @@ let () =
         of_uuid
         to_uuid
         to_uuid_exn
-        [ Uuidm.create `V4 ]
+        [ uuid_v4 () ]
         [ ""; "asd" ]
     ]
 ;;
