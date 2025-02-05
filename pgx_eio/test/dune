@@ -1,0 +1,4 @@
+(test
+ (name test_pgx_eio)
+ (package pgx_eio)
+ (libraries eio_main pgx_test pgx_eio))

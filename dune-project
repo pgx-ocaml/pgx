@@ -99,6 +99,17 @@
    (= :version))))
 
 (package
+ (name pgx_eio)
+ (synopsis "Pgx using Eio for IO")
+ (description "Pgx using Eio for IO")
+ (depends
+  eio
+  (ocaml
+   (>= 5.00))
+  (pgx
+   (= :version))))
+
+(package
  (name pgx_lwt)
  (synopsis "Pgx using Lwt for IO")
  (description "Pgx using Lwt for IO")
