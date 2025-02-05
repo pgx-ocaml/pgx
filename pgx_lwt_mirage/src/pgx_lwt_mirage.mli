@@ -22,6 +22,8 @@ module Make
     (TIME : Mirage_time.S)
     (MCLOCK : Mirage_clock.MCLOCK)
     (PCLOCK : Mirage_clock.PCLOCK)
-    (STACK : Tcpip.Stack.V4V6) : sig
-  val connect : STACK.t -> (module Pgx_lwt.S)
+    (STACK : Tcpip.Stack.V4V6)
+    (H : Happy_eyeballs_mirage.S with type stack = STACK.t
+                                  and type flow = STACK.TCP.flow) : sig
+  val connect : STACK.t * H.t -> (module Pgx_lwt.S)
 end
