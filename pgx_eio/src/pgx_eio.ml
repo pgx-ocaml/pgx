@@ -147,7 +147,7 @@ let connect
     ()
   =
   let (module Impl) = make ~net ~sw in
-  let t = Impl.connect ?ssl:None ?host ?port ?user ?password ?database ?unix_domain_socket_dir ?verbose ?max_message_length () in
+  let t = Impl.connect ~ssl:`No ?host ?port ?user ?password ?database ?unix_domain_socket_dir ?verbose ?max_message_length () in
   let module M = struct
     module Impl = Impl
     let t = t
@@ -169,7 +169,7 @@ let with_conn
   =
   Eio.Switch.run begin fun sw ->
     let (module Impl) = make ~net ~sw in
-    Impl.with_conn ?ssl:None ?host ?port ?user ?password ?database ?unix_domain_socket_dir ?verbose ?max_message_length begin fun t ->
+    Impl.with_conn ~ssl:`No ?host ?port ?user ?password ?database ?unix_domain_socket_dir ?verbose ?max_message_length begin fun t ->
       let module M = struct
         module Impl = Impl
         let t = t
