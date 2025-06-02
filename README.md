@@ -25,6 +25,9 @@ when the query is finished.
 
 Significant portions of the code come from [PG'Ocaml](http://pgocaml.forge.ocamlcore.org/).
 
+This community project was originally developed at `arenadotio/pgx` from
+where it was forked [as recommended by the former maintainer](https://github.com/arenadotio/pgx/pull/134#issuecomment-2651239638).
+
 ## Setup
 
 ```
