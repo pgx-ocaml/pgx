@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/arenadotio/pgx/badge.svg?branch=master)](https://coveralls.io/github/arenadotio/pgx?branch=master)
 [![Documentation](https://img.shields.io/badge/documentation-odoc-blue)](https://arenadotio.github.io/pgx/index.html)
 
-PGX is a pure-OCaml PostgreSQL client library, supporting Async, LWT, or
+PGX is a pure-OCaml PostgreSQL client library, supporting EIO, LWT, Async, or
 synchronous operations.
 
 This library focuses on correctness and safety, with features like:
@@ -15,7 +15,7 @@ This library focuses on correctness and safety, with features like:
  - Lots of automated tests.
  - `Pgx.Value` for parameters and returned data, encouraging people to use
    the built-in converters instead of trying to handle everything as a string.
- - Async and LWT support are built in, no need to write your own IO module.
+ - EIO, LWT and Async support are built in, no need to write your own IO module.
  - Mirage OS is supported via Pgx_lwt_mirage
 
 We also provide a relatively high-level interface, like `Pgx_async.execute_pipe`,
@@ -31,7 +31,7 @@ where it was forked [as recommended by the former maintainer](https://github.com
 ## Setup
 
 ```
-opam install pgx_async # or pgx_lwt_unix or pgx_unix or pgx_lwt_mirage
+opam install pgx_eio # or pgx_lwt_unix or pgx_async or pgx_unix or pgx_lwt_mirage
 ```
 
 ## Examples
@@ -39,10 +39,10 @@ opam install pgx_async # or pgx_lwt_unix or pgx_unix or pgx_lwt_mirage
 See [pgx_async/bin/pgx_async_example.ml](pgx_async/bin/pgx_async_example.ml) for
 a complete example of the high-level functional interface. To translate the
 example to Lwt, replace `Pgx_async` with `Pgx_lwt` and `>>|` with `>|=`. To
-translate it to synchronous IO / standard-library-only, use `Pgx_unix` and
-replace both `>>|` and `>>=` with `|>`, or just replace `>>| fun () ->` with `;`.
+translate it to EIO, use `Pgx_eio` and replace both `>>|` and `>>=`
+with `|>`, or just replace `>>| fun () ->` with `;`.
 
-I.e. in `Pgx_unix`, you can replace:
+I.e. in `Pgx_eio`, you can replace:
 
 ```ocaml
 Pgx_async.execute ~params "INSERT INTO ..."
@@ -52,5 +52,5 @@ Pgx_async.execute ~params "INSERT INTO ..."
 ... with:
 
 ```ocaml
-Pgx_unix.execute ~params "INSERT INTO ...";
+Pgx_eio.execute ~params "INSERT INTO ...";
 ```
