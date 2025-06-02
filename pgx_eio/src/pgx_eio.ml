@@ -114,7 +114,7 @@ let make ~net ~sw =
       let create t =
         t, Eio.Mutex.create ()
       let enqueue (t, mutex) f =
-        Eio.Mutex.use_rw ~protect:true mutex (fun () -> f t)
+        Eio.Mutex.use_ro mutex (fun () -> f t)
     end
   end in
   let module M = Pgx.Make (Thread) in
