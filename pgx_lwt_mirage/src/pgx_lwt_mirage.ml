@@ -24,10 +24,6 @@ let ( let* ) = Lwt.bind
 let ( let+ ) t f = Lwt.map f t
 
 module Make
-    (RANDOM : Mirage_crypto_rng_mirage.S)
-    (TIME : Mirage_time.S)
-    (MCLOCK : Mirage_clock.MCLOCK)
-    (PCLOCK : Mirage_clock.PCLOCK)
     (STACK : Tcpip.Stack.V4V6)
     (H : Happy_eyeballs_mirage.S with type stack = STACK.t
                                   and type flow = STACK.TCP.flow) =
@@ -88,7 +84,7 @@ struct
     let getlogin () = Lwt.fail_with "Running under MirageOS. getlogin not available."
   end
 
-  module Dns = Dns_client_mirage.Make (RANDOM) (TIME) (MCLOCK) (PCLOCK) (STACK) (H)
+  module Dns = Dns_client_mirage.Make (STACK) (H)
 
   type sockaddr = Thread.sockaddr =
     | Unix of string

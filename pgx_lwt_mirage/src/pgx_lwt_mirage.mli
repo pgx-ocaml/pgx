@@ -18,10 +18,6 @@
  *)
 
 module Make
-    (RANDOM : Mirage_crypto_rng_mirage.S)
-    (TIME : Mirage_time.S)
-    (MCLOCK : Mirage_clock.MCLOCK)
-    (PCLOCK : Mirage_clock.PCLOCK)
     (STACK : Tcpip.Stack.V4V6)
     (H : Happy_eyeballs_mirage.S with type stack = STACK.t
                                   and type flow = STACK.TCP.flow) : sig
