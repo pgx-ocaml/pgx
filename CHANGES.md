@@ -1,4 +1,7 @@
-## 2.3 (unreleased)
+## 2.4 (unreleased)
+
+## 2.3 (2025-12-28)
+* Add support for EIO
 
 ## 2.2 (2022-10-26)
 * Support ocaml 5.0 deprecations (https://github.com/arenadotio/pgx/pull/129)
